@@ -7,7 +7,7 @@
 
     <title>QRkemon</title>
 
-    <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400">
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Karla:400">
 
     <style>
     *,*:before,*:after {
@@ -76,10 +76,10 @@
         <input type="checkbox" class="autorefresh">&nbsp;autorefresh&nbsp;&frasl;&nbsp;5&nbsp;sec
     </label>
 
-    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
     $(document).ready(() => {
-        let qrimg = (r = Math.random()) => `<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${r + Date.now()}" alt="qr code with a random number between 0-1">`;
+        let qrimg = (r = Math.random()) => `<img src="//api.qrserver.com/v1/create-qr-code/?size=250x250&data=${r + Date.now()}" alt="qr code with a random number between 0-1">`;
 
         // initial random qrcode
         $('.qrcode').html(qrimg());
