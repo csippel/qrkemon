@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>QRkemon</title>
+
+    <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400">
+
+    <style>
+    *,*:before,*:after {
+        margin: 0;
+    }
+    body {
+        font: 400 16px/1.2 Karla, sans-serif;
+        color: #666;
+        background: #f4f4f4;
+        text-align: center;
+    }
+    header {
+        width: 100%;
+        background: #fff;
+        text-align: center;
+        line-height: 1.6
+    }
+    main {
+        margin: 10vh auto;
+        text-align: center;
+        max-width: 300px;
+        max-height: 300px;
+        padding: 1.6em 2.4em 3.8em;
+        background: #fff;
+        border: 1px solid #f2f2f2;
+        border-radius: 6px;
+        box-shadow: 0 10px 75px rgba(0,0,0,.2)
+    }
+    img {
+        margin-bottom: 1.6em;
+    }
+    kbd {
+        box-shadow: 0 1px 0 rgba(0,0,0,.2), inset 0 0 1px 2px #fff;
+        background: #f6f6f6;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        color: #aaa;
+        margin: 0 .1em;
+        padding: .1em .6em;
+    }
+    label {
+        padding: 2.4em 0;
+        font-size: 1.5em;
+        opacity: .6;
+        transition: opacity .2s ease-in;
+        cursor: pointer;
+    }
+    label:hover, 
+    input[type=checkbox]:checked {
+        opacity: 1;
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>QRkemon</h1>
+    </header>
+
+    <main>
+        <div class="qrcode"></div>
+        <small>Press <kbd>space</kbd> or tap to generate a new QR-Code.</small>
+    </main>
+
+    <label>
+        <input type="checkbox" class="autorefresh">&nbsp;autorefresh&nbsp;&frasl;&nbsp;5&nbsp;sec
+    </label>
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+    $(document).ready(() => {
+        let qrimg = (r = Math.random()) => `<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${r + Date.now()}" alt="qr code with a random number between 0-1">`;
+
+        // initial random qrcode
+        $('.qrcode').html(qrimg());
+
+        // spacebar
+        $(document).keydown(e => {
+            if (e.keyCode == '32') {
+                $('.qrcode').html(qrimg());
+            }
+        });
+
+        // tap
+        $('main').on({'touchstart': () => {
+                $('.qrcode').html(qrimg());
+            }
+        });
+
+        // click
+        $('main').click(() => {
+            $('.qrcode').html(qrimg());
+        });
+
+        // call every 5 sec
+        window.setInterval(() => {
+            if (true === $('.autorefresh').prop('checked')) {
+                $('.qrcode').html(qrimg());
+            }
+        }, 5000);
+    });
+    </script>
+
+</body>
+</html>
